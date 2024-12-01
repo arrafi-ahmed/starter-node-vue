@@ -1,17 +1,43 @@
 import { toast } from "vue-sonner";
 import { countries } from "@/others/country-list";
 
-export const appInfo = { name: "Starter", version: 1.0 };
+export const appInfo = { name: "TotaLiga", version: 1.1 };
 export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 export const clientBaseUrl = import.meta.env.VITE_BASE_URL;
 export const isProd = import.meta.env.PROD;
 
+export const getSlug = (slug) =>
+  slug
+    .trim()
+    .toLowerCase() // Convert to lowercase
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/[^a-z0-9-]/g, "");
+
 export const formatDate = (inputDate) => {
-  const date = new Date(inputDate);
-  const day = `0${date.getDate()}`.slice(-2);
-  const month = `0${date.getMonth() + 1}`.slice(-2);
-  const year = date.getFullYear();
+  if (!inputDate) return "";
+  const parsedDate = new Date(inputDate);
+  if (!parsedDate.getTime()) return "";
+
+  const day = `0${parsedDate.getDate()}`.slice(-2);
+  const month = `0${parsedDate.getMonth() + 1}`.slice(-2);
+  const year = parsedDate.getFullYear();
   return `${day}/${month}/${year}`;
+};
+
+export const getDateOnly = (inputDate) => {
+  // YYYY-MM-DD format
+  if (!inputDate) return "";
+  return new Date(inputDate).toLocaleDateString("en-CA");
+};
+
+export const getTimeOnly = (inputDate) => {
+  if (!inputDate) return "";
+
+  const date = new Date(inputDate);
+  let hours = date.getHours().toString().padStart(2, "0"); // Ensures two digits
+  let minutes = date.getMinutes().toString().padStart(2, "0"); // Ensures two digits
+
+  return `${hours}:${minutes}`;
 };
 
 export const sendToWhatsapp = (phone, message) => {
@@ -42,7 +68,7 @@ export const getClientPublicImgUrl = (imageName) =>
 
 export const getApiPublicImgUrl = (imageName, type) =>
   isProd
-    ? `${apiBaseUrl}/api/public/${type}/${imageName}`
+    ? `${apiBaseUrl}/api/${type}/${imageName}`
     : `${apiBaseUrl}/${type}/${imageName}`;
 
 export const getUserImageUrl = (imageName) => {
@@ -51,10 +77,11 @@ export const getUserImageUrl = (imageName) => {
     : getApiPublicImgUrl(imageName, "user");
 };
 
-export const getEventImageUrl = (imageName) => {
-  return imageName === "null" || !imageName
-    ? getClientPublicImgUrl("default-event.jpg")
-    : getApiPublicImgUrl(imageName, "event");
+export const removeNullProperties = (obj) => {
+  for (const key in obj) {
+    if (obj[key] === null) delete obj[key];
+  }
+  return obj;
 };
 
 export const getToLink = (item) => {
@@ -148,3 +175,48 @@ export const getCurrencySymbol = (currencyCode, type) => {
 
   return currencyMap[currencyCodeLower][type];
 };
+
+// disable-horizontal-scrolling start
+let touchStartX = 0;
+let touchStartY = 0;
+export const preventDrawerSwipe = (event) => {
+  if (typeof window === "undefined") return; // Prevent execution on the server
+
+  const touch = event.touches[0];
+  if (event.type === "touchstart") {
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+  } else if (event.type === "touchmove") {
+    const touchEndX = touch.clientX;
+    const touchEndY = touch.clientY;
+    const deltaX = touchStartX - touchEndX;
+    const deltaY = Math.abs(touchStartY - touchEndY);
+
+    const isHorizontalSwipe = deltaY < deltaX;
+    const drawerOpenGesture = isHorizontalSwipe && deltaX > 8;
+
+    if (drawerOpenGesture) {
+      const target = event.target.closest(".no-block-swipe");
+      if (!target) {
+        event.preventDefault();
+      }
+    }
+  }
+};
+export const addSwipeBlocking = () => {
+  if (typeof window !== "undefined") {
+    window.addEventListener("touchstart", preventDrawerSwipe, {
+      passive: false,
+    });
+    window.addEventListener("touchmove", preventDrawerSwipe, {
+      passive: false,
+    });
+  }
+};
+export const removeSwipeBlocking = () => {
+  if (typeof window !== "undefined") {
+    window.removeEventListener("touchstart", preventDrawerSwipe);
+    window.removeEventListener("touchmove", preventDrawerSwipe);
+  }
+};
+// disable-horizontal-scrolling  end

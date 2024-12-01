@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "setup": "npm i && npm update",
+    "in": "npm install",
+    "up": "npm update --save",
     "dev": "NODE_ENV=development nodemon app.js",
     "prod": "NODE_ENV=production node app.js",
     "build": ""
@@ -21,5 +22,8 @@
     "nodemailer": "^6.9.7",
     "postgres": "^3.4.3",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

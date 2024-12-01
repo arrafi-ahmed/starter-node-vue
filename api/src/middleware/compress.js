@@ -11,7 +11,7 @@ const compressAndRotateImage = async (file) => {
   let maxWidth;
   if (prefix === "user") {
     maxWidth = 400;
-  } else if (prefix === "eventLogo") {
+  } else if (prefix === "teamLogo") {
     maxWidth = 1000;
   }
 
@@ -63,7 +63,7 @@ const compressImages = async (req, res, next) => {
         req.files.map(async (file) => {
           file = await compressAndRotateImage(file);
           return file;
-        })
+        }),
       );
     }
     next();

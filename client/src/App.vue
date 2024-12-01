@@ -13,21 +13,31 @@ watch(route, (to) => {
 });
 </script>
 <template>
-  <progress-loader />
-  <Toaster
-    :expand="true"
-    closeButton
-    position="bottom-left"
-    richColors
-    theme="dark"
-    class="custom-toast"
-  />
-  <router-view />
+  <v-app>
+    <v-main>
+      <progress-loader />
+      <Toaster
+        :expand="true"
+        class="custom-toast"
+        closeButton
+        position="bottom-left"
+        richColors
+        theme="dark"
+      />
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;900&display=swap");
+
+.v-application {
+  font-family: "Poppins", sans-serif;
+}
+
 body,
 .custom-toast {
-  font-family: "Oxygen", sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 }
 
 .clickable {
@@ -56,5 +66,23 @@ body,
 
 .z-index-max {
   z-index: 999999 !important;
+}
+
+.text-overline {
+  line-height: 1.5;
+}
+
+.max-content {
+  min-width: max-content;
+}
+
+.scrollable-container {
+  overflow-x: auto; /* Allows horizontal scrolling */
+  white-space: nowrap; /* Prevents wrapping of child elements */
+}
+
+.scrollable-container .v-row {
+  flex-wrap: nowrap; /* Prevents row from wrapping */
+  /* width: max-content; /* Ensures the row expands based on its content */
 }
 </style>

@@ -20,8 +20,10 @@ const generateAuthData = (result) => {
 };
 
 exports.signin = async ({ email, password }) => {
-  const result =
-    await sql`select * from app_user where email = ${email} and password = ${password}`;
+  const result = await sql`select *
+                  from app_user
+                  where email = ${email}
+                    and password = ${password}`;
   if (result.length > 0) {
     return generateAuthData(result[0]);
   } else {

@@ -1,6 +1,6 @@
 const nodeMailer = require("nodemailer");
+const { appInfo } = require("../others/util");
 const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-// let html = ``;
 
 const transporter = nodeMailer.createTransport({
   host: SMTP_HOST,
@@ -14,7 +14,7 @@ const transporter = nodeMailer.createTransport({
 
 const sendMail = async (to, subject, html) => {
   return transporter.sendMail({
-    from: `QuickStarter <${SMTP_USER}>`,
+    from: `${appInfo.name} <${SMTP_USER}>`,
     to,
     subject,
     html,

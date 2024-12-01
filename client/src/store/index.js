@@ -18,6 +18,7 @@ const store = createStore({
     },
   },
   actions: {},
+  getters: {},
 });
 
 export default store;

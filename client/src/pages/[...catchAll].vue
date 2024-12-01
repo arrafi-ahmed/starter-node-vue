@@ -1,12 +1,20 @@
 <script setup>
 import { useRoute } from "vue-router";
-import {computed, ref} from "vue";
-import {useStore} from "vuex";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+
+definePage({
+  name: "not-found",
+  meta: {
+    title: "Not Found",
+    layout: "headerless",
+  },
+});
 
 const route = useRoute();
 const store = useStore();
-const status = ref(route.params.status || 404);
-const message = ref(route.params.message || "Looks like you're lost!");
+const status = ref(route.query.status || 404);
+const message = ref(route.query.message || "Looks like you're lost!");
 
 const calcHome = computed(() => store.getters["user/calcHome"]);
 </script>

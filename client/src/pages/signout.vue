@@ -2,6 +2,13 @@
 import { useStore } from "vuex";
 import { toast } from "vue-sonner";
 
+definePage({
+  name: "signout",
+  meta: {
+    requiresAuth: true,
+  },
+});
+
 const store = useStore();
 store
   .dispatch("user/signout")

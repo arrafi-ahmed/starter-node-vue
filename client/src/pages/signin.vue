@@ -3,8 +3,16 @@ import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { isValidEmail } from "@/others/util";
-import PageTitle from "@/components/PageTitle.vue";
 import { useDisplay } from "vuetify";
+
+definePage({
+  layout: "default",
+  name: "signin", // Set the route name to 'signin'
+  meta: {
+    requiresNoAuth: true,
+  },
+  title: "Signin",
+});
 
 const { mobile } = useDisplay();
 const store = useStore();
@@ -31,7 +39,7 @@ const signinUser = async () => {
       router.push(calcHome.value);
     });
 };
-let dialog = ref(false);
+const dialog = ref(false);
 const resetEmail = ref(null);
 const resetForm = ref(null);
 const isResetFormValid = ref(true);
@@ -47,6 +55,7 @@ const handleSubmitResetPassword = async () => {
     })
     .catch((err) => {});
 };
+console.log(router.getRoutes());
 </script>
 
 <template>
@@ -78,7 +87,6 @@ const handleSubmitResetPassword = async () => {
                 ]"
                 class="mt-2 mt-md-4"
                 clearable
-                density="compact"
                 hide-details="auto"
                 label="Email Address"
                 prepend-inner-icon="mdi-account"
@@ -92,7 +100,6 @@ const handleSubmitResetPassword = async () => {
                 :rules="[(v) => !!v || 'Password is required!']"
                 class="mt-2 mt-md-4"
                 clearable
-                density="compact"
                 hide-details="auto"
                 label="Password"
                 prepend-inner-icon="mdi-lock"
@@ -105,9 +112,25 @@ const handleSubmitResetPassword = async () => {
                 <div>
                   <div
                     class="clickable text-blue"
-                    @click="router.push({ name: 'register' })"
+                    @click="
+                      router.push({
+                        name: 'register',
+                        params: { role: 'organizer' },
+                      })
+                    "
                   >
-                    No Account?
+                    Join as Organizer
+                  </div>
+                  <div
+                    class="clickable text-blue"
+                    @click="
+                      router.push({
+                        name: 'register',
+                        params: { role: 'team' },
+                      })
+                    "
+                  >
+                    Join as Manager
                   </div>
                   <div class="clickable text-blue" @click="dialog = !dialog">
                     Forgot Password?
@@ -118,7 +141,7 @@ const handleSubmitResetPassword = async () => {
                   :density="mobile ? 'comfortable' : 'default'"
                   color="primary"
                   type="submit"
-                >Sign In
+                  >Sign In
                 </v-btn>
               </div>
             </v-form>
@@ -148,7 +171,6 @@ const handleSubmitResetPassword = async () => {
             ]"
             class="mt-2"
             clearable
-            density="compact"
             hide-details="auto"
             label="Email"
             variant="solo"
@@ -160,7 +182,7 @@ const handleSubmitResetPassword = async () => {
               :density="mobile ? 'compact' : 'default'"
               color="primary"
               type="submit"
-            >Submit
+              >Submit
             </v-btn>
           </v-card-actions>
         </v-form>

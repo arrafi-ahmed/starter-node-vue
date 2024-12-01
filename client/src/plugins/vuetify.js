@@ -3,6 +3,8 @@
  *
  * Framework documentation: https://vuetifyjs.com`
  */
+// lab
+import { VTimePicker } from "vuetify/labs/VTimePicker";
 
 // Styles
 import "@mdi/font/css/materialdesignicons.css";
@@ -14,7 +16,7 @@ import { createVuetify } from "vuetify";
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   components: {
-    // VInfiniteScroll,
+    VTimePicker,
   },
   theme: {
     themes: {
@@ -22,6 +24,7 @@ export default createVuetify({
         colors: {
           primary: "#1867C0",
           secondary: "#5CBBF6",
+          tertiary: "#f78166",
         },
       },
     },
