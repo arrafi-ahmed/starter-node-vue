@@ -23,26 +23,6 @@ const isSudo = (req, res, next) => {
   }
 };
 
-const isOrganizer = (req, res, next) => {
-  const currentUser = req.currentUser;
-  if (!currentUser) res.status(400).json({ message: "Invalid request" });
-  try {
-    if (currentUser.role.toLowerCase() === "organizer") next();
-  } catch (error) {
-    return res.status(400).json({ message: "Invalid request" });
-  }
-};
-
-const isManager = (req, res, next) => {
-  const currentUser = req.currentUser;
-  if (!currentUser) res.status(400).json({ message: "Invalid request" });
-  try {
-    if (currentUser.role.toLowerCase() === "team_manager") next();
-  } catch (error) {
-    return res.status(400).json({ message: "Invalid request" });
-  }
-};
-
 const isAuthenticated = (req, res, next) => {
   try {
     const token = req.header("authorization");
@@ -79,8 +59,6 @@ const isAuthenticated = (req, res, next) => {
 module.exports = {
   auth,
   isSudo,
-  isOrganizer,
-  isManager,
   isAuthenticated,
   // isAdminEventAuthor,
 };

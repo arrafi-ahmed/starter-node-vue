@@ -15,8 +15,8 @@ const globalErrHandler = (err, req, res, next) => {
     res.setHeader("Content-Type", "application/json");
     if (err instanceof CustomError) {
       res
-        .status(err.statusCode)
-        .json(new ApiResponse(err.message, err.payload));
+          .status(err.statusCode)
+          .json(new ApiResponse(err.message, err.payload));
     } else {
       res.status(500).json(new ApiResponse("Something went wrong!", null));
     }
@@ -27,6 +27,9 @@ const globalErrHandler = (err, req, res, next) => {
 const uncaughtErrHandler = () => {
   process.on("uncaughtException", (err) => {
     printError("UNCAUGHT", err);
+  });
+  process.on("unhandledRejection", (reason, promise) => {
+    printError("UNHANDLED REJECTION", reason);
   });
 };
 

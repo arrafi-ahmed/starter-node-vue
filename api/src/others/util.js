@@ -14,8 +14,6 @@ const formatDate = (inputDate) => {
 };
 
 const ifSudo = (role) => role === "sudo";
-const ifOrganizer = (role) => role === "organizer";
-const ifManager = (role) => role === "team_manager";
 
 const removeOtherParams = (obj, allowedKeys) => {
   Object.keys(obj).forEach((key) => {
@@ -123,6 +121,4 @@ module.exports = {
   formatDate,
   removeOtherParams,
   ifSudo,
-  ifOrganizer,
-  ifManager,
 };
