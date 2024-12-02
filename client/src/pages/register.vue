@@ -1,8 +1,8 @@
 <script setup>
-import {onMounted, reactive, ref} from "vue";
-import {useRoute, useRouter} from "vue-router";
-import {isValidEmail, isValidPass, showApiQueryMsg} from "@/others/util";
-import {useDisplay} from "vuetify";
+import { onMounted, reactive, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { isValidEmail, isValidPass, showApiQueryMsg } from "@/others/util";
+import { useDisplay } from "vuetify";
 
 definePage({
   name: "register",
@@ -12,7 +12,7 @@ definePage({
   },
 });
 
-const {mobile} = useDisplay();
+const { mobile } = useDisplay();
 const route = useRoute();
 const router = useRouter();
 const userInit = {
@@ -24,7 +24,7 @@ const userInit = {
   //     ? "team_manager"
   //       : null,
 };
-const user = reactive({...userInit});
+const user = reactive({ ...userInit });
 const confirmPassword = ref(null);
 const form = ref(null);
 const isFormValid = ref(true);
@@ -41,13 +41,12 @@ const registerUser = async () => {
 };
 onMounted(() => {
   showApiQueryMsg();
-  console.log(router.getRoutes());
 });
 </script>
 <template>
   <v-container class="fill-height">
     <v-row align="center" justify="center">
-      <v-col cols="12" lg="6" md="6" sm="6">
+      <v-col :cols="12" :lg="6" :md="6" :sm="6">
         <v-card
           class="mx-auto pa-2 my-2"
           color="grey-lighten-3"
@@ -78,7 +77,7 @@ onMounted(() => {
                 label="Name"
                 required
                 variant="solo"
-              ></v-text-field>
+              />
 
               <!-- Email Address -->
               <v-text-field
@@ -93,7 +92,7 @@ onMounted(() => {
                 label="Email Address"
                 required
                 variant="solo"
-              ></v-text-field>
+              />
 
               <!-- Password -->
               <v-text-field
@@ -106,7 +105,7 @@ onMounted(() => {
                 required
                 type="password"
                 variant="solo"
-              ></v-text-field>
+              />
               <v-text-field
                 v-model="confirmPassword"
                 :rules="[
@@ -121,7 +120,7 @@ onMounted(() => {
                 required
                 type="password"
                 variant="solo"
-              ></v-text-field>
+              />
 
               <div class="pb-3 pl-1 mt-3">
                 By signing up, you agree to the
@@ -139,7 +138,8 @@ onMounted(() => {
                 block
                 color="primary"
                 @click="registerUser"
-              >Register
+              >
+                Register
               </v-btn>
               <div
                 class="clickable mt-3 text-center text-blue"

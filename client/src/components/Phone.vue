@@ -72,16 +72,16 @@ onMounted(() => {
         :variant="variant"
         hide-details="auto"
         item-value="code"
-        @update:modelValue="formatSelectedDialCode"
+        @update:model-value="formatSelectedDialCode"
       >
-        <template v-slot:selection="{}">
+        <template #selection="{}">
           <v-row no-gutters>
-            <v-col cols="auto"
-              ><span>{{ selectedCountry.flag }}</span></v-col
-            >
+            <v-col cols="auto">
+              <span>{{ selectedCountry.flag }}</span>
+            </v-col>
             <v-col class="flex-grow-1 ml-2" cols="auto">
-              <span>{{ selectedCountry.dialCode }}</span></v-col
-            >
+              <span>{{ selectedCountry.dialCode }}</span>
+            </v-col>
           </v-row>
         </template>
       </v-select>
@@ -97,9 +97,9 @@ onMounted(() => {
         :variant="variant"
         clearable
         hide-details="auto"
-        @update:modelValue="formatPhoneInput"
+        @update:model-value="formatPhoneInput"
       >
-        <template v-slot:label>
+        <template #label>
           <span>{{ inputItem.text }}</span>
           <span v-if="inputItem.required" class="text-error"> *</span>
         </template>

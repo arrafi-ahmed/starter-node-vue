@@ -19,9 +19,9 @@ watch(route, (to) => {
       <Toaster
         :expand="true"
         class="custom-toast"
-        closeButton
+        close-button
         position="bottom-left"
-        richColors
+        rich-colors
         theme="dark"
       />
       <router-view />

@@ -2,6 +2,7 @@ require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 process.env.TZ = "UTC";
 
 const express = require("express");
+const helmet = require('helmet');
 const path = require("path");
 const app = express();
 
@@ -13,6 +14,7 @@ const { appInfo } = require("./src/others/util");
 const port = process.env.PORT || 3000;
 
 // Middleware
+app.use(helmet());
 app.use(userAgent);
 app.use(customCors);
 app.use(express.static(path.join(__dirname, "public")));
@@ -32,10 +34,6 @@ app.get("/api/info", (req, res) => {
   res.status(200).json(appInfo);
 });
 
-// Error Handling
-uncaughtErrHandler();
-app.use(globalErrHandler);
-
 // Start Server
 app.listen(port, (err) => {
   if (err) {
@@ -44,3 +42,7 @@ app.listen(port, (err) => {
   }
   console.log(`Server started at port ${port} - ${new Date().toISOString()}`);
 });
+
+// Error Handling
+uncaughtErrHandler();
+app.use(globalErrHandler);

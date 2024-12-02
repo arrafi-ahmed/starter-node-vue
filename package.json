@@ -1,5 +1,5 @@
 {
-  "name": "starter-node-vue",
+  "name": "quick-starter",
   "version": "1.0.0",
   "scripts": {
     "in": "npm i && npm in --prefix client && npm in --prefix api",

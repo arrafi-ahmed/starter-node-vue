@@ -37,7 +37,7 @@ const handleBackClick = () => {
 
 <template>
   <v-row :class="customClass" :justify="justify" align="center" no-gutters>
-    <v-col class="d-flex align-center" cols="9">
+    <v-col class="d-flex align-center" :cols="9">
       <v-btn
         v-if="calcShowBack"
         class="mr-1"
@@ -46,27 +46,30 @@ const handleBackClick = () => {
         style="font-size: xx-large"
         variant="text"
         @click="handleBackClick"
-      >
-      </v-btn>
+      />
       <div class="d-flex align-center">
         <v-avatar
           v-if="prependAvatar"
           :image="prependAvatar"
           class="mr-2"
           rounded
-          size="60"
-        ></v-avatar>
+          :size="60"
+        />
         <div>
-          <div v-if="subTitle" class="text-overline">{{ subTitle }}</div>
-          <h2 v-if="title">{{ title }}</h2>
+          <div v-if="subTitle" class="text-overline">
+            {{ subTitle }}
+          </div>
+          <h2 v-if="title">
+            {{ title }}
+          </h2>
         </div>
       </div>
     </v-col>
     <v-col cols="auto">
-      <slot></slot>
+      <slot />
     </v-col>
   </v-row>
-  <v-divider v-if="borderB" class="my-2"></v-divider>
+  <v-divider v-if="borderB" class="my-2" />
 </template>
 
 <style scoped></style>

@@ -59,7 +59,7 @@ const switchFullsize = () => {
     class="clickable"
     cover
     @click="switchDialog"
-  ></v-img>
+  />
 
   <v-dialog v-model="dialog" :max-width="fullSize ? 1000 : targetImageWidth">
     <v-card class="position-relative">
@@ -74,7 +74,7 @@ const switchFullsize = () => {
         rounded
         size="sm"
         @click="dialog = !dialog"
-      ></v-btn>
+      />
 
       <!--      <div ref="targetImage">-->
       <v-img
@@ -98,7 +98,8 @@ const switchFullsize = () => {
               color="grey"
               size="x-large"
               @click.stop="getPrevImage"
-              >mdi-chevron-left-circle
+            >
+              mdi-chevron-left-circle
             </v-icon>
           </v-col>
           <v-col class="d-flex justify-center" cols="auto">
@@ -108,7 +109,8 @@ const switchFullsize = () => {
               color="grey"
               size="x-large"
               @click.stop="getNextImage"
-              >mdi-chevron-right-circle
+            >
+              mdi-chevron-right-circle
             </v-icon>
           </v-col>
         </v-row>

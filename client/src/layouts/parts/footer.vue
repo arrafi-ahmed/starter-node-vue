@@ -24,7 +24,7 @@ const items = [{ title: "Home", to: calcHome }];
       <!--      >-->
       <!--        {{ item.title }}-->
       <!--      </v-btn>-->
-      <v-col class="text-center" cols="12">
+      <v-col class="text-center" :cols="12">
         <small>
           &copy; {{ new Date().getFullYear() }} —
           <strong>{{ appInfo.name }}</strong> v{{ appInfo.version }}

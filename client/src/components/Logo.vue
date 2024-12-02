@@ -22,7 +22,7 @@ const { imgSrc, title, imgClass, containerClass, maxWidth, width } =
       :max-width="maxWidth"
       :src="imgSrc"
       :width="width"
-    ></v-img>
+    />
 
     <div v-if="title" class="pl-2">
       <component :is="xs ? 'h3' : 'h2'">

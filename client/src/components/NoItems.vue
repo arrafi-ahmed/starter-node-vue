@@ -24,7 +24,7 @@ const { justify, text, variant, cols, sm, md, lg, xl, closable, customClass } =
           :variant="variant"
           density="compact"
           icon="mdi-information-outline"
-        ></v-alert>
+        />
       </v-col>
     </v-row>
   </v-container>

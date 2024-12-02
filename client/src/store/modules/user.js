@@ -14,9 +14,9 @@ export const mutations = {
     state.token = payload;
   },
   setCurrentUser(state, payload) {
-    state.currentUser = {...state.currentUser, ...payload};
+    state.currentUser = { ...state.currentUser, ...payload };
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    currentUser = {...currentUser, ...payload};
+    currentUser = { ...currentUser, ...payload };
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   },
   removeToken(state) {
@@ -34,9 +34,7 @@ export const mutations = {
     state.users.unshift(payload);
   },
   editUser(state, payload) {
-    const foundIndex = state.users.findIndex(
-      (item) => item.id == payload.id,
-    );
+    const foundIndex = state.users.findIndex((item) => item.id == payload.id);
     if (foundIndex !== -1) {
       state.users[foundIndex] = payload;
     }
@@ -50,7 +48,7 @@ export const mutations = {
 };
 
 export const actions = {
-  signin({commit}, request) {
+  signin({ commit }, request) {
     return new Promise((resolve, reject) => {
       $axios
         .post("/api/user/signin", request)
@@ -64,20 +62,20 @@ export const actions = {
         });
     });
   },
-  signout({commit}) {
+  signout({ commit }) {
     return new Promise((resolve, reject) => {
       commit("removeToken");
       commit("removeCurrentUser");
       resolve();
     });
   },
-  save({commit}, request) {
+  save({ commit }, request) {
     return new Promise((resolve, reject) => {
       $axios
         .post("/api/user/save", request)
         .then((response) => {
           const actionType = request.id ? "edit" : "add";
-          const actionName = `${actionType}User`
+          const actionName = `${actionType}User`;
           commit(actionName, response.data?.payload);
           resolve(response);
         })
@@ -86,7 +84,7 @@ export const actions = {
         });
     });
   },
-  setUsers({commit}, request) {
+  setUsers({ commit }, request) {
     return new Promise((resolve, reject) => {
       $axios
         .get("/api/user/getUsers")
@@ -99,10 +97,10 @@ export const actions = {
         });
     });
   },
-  removeUser({commit}, request) {
+  removeUser({ commit }, request) {
     return new Promise((resolve, reject) => {
       $axios
-        .get("/api/user/removeUser", {params: {userId: request.id}})
+        .get("/api/user/removeUser", { params: { userId: request.id } })
         .then((response) => {
           commit("removeUser", response.data?.payload);
           resolve(response);
@@ -130,9 +128,9 @@ export const getters = {
   calcHome(state, getters) {
     // add all the app roles here, and their default home page
     return getters.isSudo
-      ? {name: "home"}
+      ? { name: "home" }
       : getters.signedin
-        ? {name: "home"}
-        : {name: "signout"};
+        ? { name: "home" }
+        : { name: "signout" };
   },
 };

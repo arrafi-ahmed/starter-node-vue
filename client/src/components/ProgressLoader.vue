@@ -17,7 +17,7 @@ const progress = computed(() => store.state.progress);
       indeterminate
       reverse
       rounded
-    ></v-progress-linear>
+    />
   </div>
 </template>
 

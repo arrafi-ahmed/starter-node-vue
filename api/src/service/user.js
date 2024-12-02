@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid");
 const CustomError = require("../model/CustomError");
 const { sql } = require("../db");
+const { hash, compare } = require("bcrypt");
 
-exports.register = (payload) => {};
 const generateAuthData = (result) => {
   let token = "";
   let currentUser = {};
@@ -18,15 +17,40 @@ const generateAuthData = (result) => {
   }
   return { token, currentUser };
 };
+// role 10 = admin, 20 = manager
+exports.save = async ({ payload }) => {
+  const hashedPassword = await hash(payload.password, 10);
+  const user = {
+    ...payload,
+    password: hashedPassword,
+    role: 20,
+    createdAt: new Date(),
+  };
+  let savedUser = null;
+  try {
+    [savedUser] = await sql`
+            insert into users ${sql(user)} on conflict(id) do
+            update set ${sql(user)} returning *`;
+  } catch (err) {
+    if (err.code === "23505")
+      throw new CustomError("Email already taken!", 409);
+    else throw err;
+  }
+  return savedUser;
+};
 
-exports.signin = async ({ email, password }) => {
-  const result = await sql`select *
-                  from app_user
-                  where email = ${email}
-                    and password = ${password}`;
-  if (result.length > 0) {
-    return generateAuthData(result[0]);
-  } else {
+exports.signin = async ({ payload: { email, password } }) => {
+  const result = await sql`
+        select *
+        from users
+        where email = ${email}`;
+  if (result.length === 0) {
     throw new CustomError("Incorrect email/password!", 401);
   }
+  const user = result[0];
+  const isPasswordValid = await compare(password, user.password); // Compare hashed password
+  if (!isPasswordValid) {
+    throw new CustomError("Incorrect email/password!", 401);
+  }
+  return generateAuthData(user);
 };

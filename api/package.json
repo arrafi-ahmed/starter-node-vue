@@ -21,7 +21,9 @@
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.7",
     "postgres": "^3.4.3",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "helmet": "^8.0.0",
+    "bcrypt": "^5.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

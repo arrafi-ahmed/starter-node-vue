@@ -2,9 +2,9 @@ const router = require("express").Router();
 const userService = require("../service/user");
 const ApiResponse = require("../model/ApiResponse");
 
-router.post("/register", (req, res, next) => {
+router.post("/save", (req, res, next) => {
   userService
-    .register(req.body)
+    .save({ payload: req.body })
     .then((result) => {
       if (result) {
         res
@@ -17,7 +17,7 @@ router.post("/register", (req, res, next) => {
 
 router.post("/signin", (req, res, next) => {
   userService
-    .signin(req.body)
+    .signin({ payload: req.body })
     .then(({ token, currentUser }) => {
       if (token) {
         res

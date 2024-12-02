@@ -36,7 +36,7 @@ onMounted(() => {
 
 <template v-if="formattedDate">
   <v-menu v-model="menu" :close-on-content-click="false" location="center">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <v-text-field
         v-model="formattedDate"
         :class="customClass"
@@ -59,7 +59,7 @@ onMounted(() => {
         height="auto"
         show-adjacent-months
         title=""
-        @update:modelValue="handleDateChange"
+        @update:model-value="handleDateChange"
       />
       <v-btn
         class="position-absolute top-0 right-0"
@@ -68,7 +68,7 @@ onMounted(() => {
         size="small"
         variant="text"
         @click="menu = false"
-      ></v-btn>
+      />
     </div>
   </v-menu>
 </template>

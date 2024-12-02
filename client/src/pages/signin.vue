@@ -1,9 +1,9 @@
 <script setup>
-import {computed, ref} from "vue";
-import {useRouter} from "vue-router";
-import {useStore} from "vuex";
-import {isValidEmail} from "@/others/util";
-import {useDisplay} from "vuetify";
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { isValidEmail } from "@/others/util";
+import { useDisplay } from "vuetify";
 
 definePage({
   layout: "default",
@@ -14,7 +14,7 @@ definePage({
   title: "Signin",
 });
 
-const {mobile} = useDisplay();
+const { mobile } = useDisplay();
 const store = useStore();
 const router = useRouter();
 
@@ -53,16 +53,14 @@ const handleSubmitResetPassword = async () => {
     .then((res) => {
       dialog.value = !dialog.value;
     })
-    .catch((err) => {
-    });
+    .catch((err) => {});
 };
-console.log(router.getRoutes());
 </script>
 
 <template>
   <v-container class="fill-height">
     <v-row align="center" justify="center">
-      <v-col cols="12" lg="6" md="6" sm="6">
+      <v-col :cols="12" :lg="6" :md="6" :sm="6">
         <v-card
           class="mx-auto pa-4 pa-md-8 my-2 my-md-5"
           color="grey-lighten-3"
@@ -93,7 +91,7 @@ console.log(router.getRoutes());
                 prepend-inner-icon="mdi-account"
                 required
                 variant="solo"
-              ></v-text-field>
+              />
 
               <!-- Password -->
               <v-text-field
@@ -107,7 +105,7 @@ console.log(router.getRoutes());
                 required
                 type="password"
                 variant="solo"
-              ></v-text-field>
+              />
 
               <div class="d-flex align-center mt-2 mt-md-5">
                 <div>
@@ -115,22 +113,26 @@ console.log(router.getRoutes());
                     class="clickable text-blue"
                     @click="
                       router.push({
-                        name: 'register'
+                        name: 'register',
                       })
                     "
                   >
                     No Account?
                   </div>
-                  <div class="clickable text-blue" @click="dialog = !dialog">
+                  <div
+                    class="clickable text-blue mt-1"
+                    @click="dialog = !dialog"
+                  >
                     Forgot Password?
                   </div>
                 </div>
-                <v-spacer></v-spacer>
+                <v-spacer />
                 <v-btn
                   :density="mobile ? 'comfortable' : 'default'"
                   color="primary"
                   type="submit"
-                >Sign In
+                >
+                  Sign In
                 </v-btn>
               </div>
             </v-form>
@@ -140,7 +142,7 @@ console.log(router.getRoutes());
     </v-row>
   </v-container>
 
-  <v-dialog v-model="dialog" width="350">
+  <v-dialog v-model="dialog" :width="350">
     <v-card>
       <v-card-title>
         <span>Reset Password</span>
@@ -163,15 +165,16 @@ console.log(router.getRoutes());
             hide-details="auto"
             label="Email"
             variant="solo"
-          ></v-text-field>
+          />
 
           <v-card-actions>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
               :density="mobile ? 'compact' : 'default'"
               color="primary"
               type="submit"
-            >Submit
+            >
+              Submit
             </v-btn>
           </v-card-actions>
         </v-form>

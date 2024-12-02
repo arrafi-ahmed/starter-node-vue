@@ -64,7 +64,7 @@ const handleTimeUnitChange = (newVal, unitType) => {
             scrollable
             @update:minute="handleTimeUnitChange($event, 'min')"
             @update:hour="handleTimeUnitChange($event, 'hr')"
-          ></v-time-picker>
+          />
         </v-menu>
       </v-text-field>
     </v-col>

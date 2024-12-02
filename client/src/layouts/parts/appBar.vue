@@ -57,9 +57,9 @@ const getGreetings = computed(() => {
       container-class="clickable"
       img-class="mx-auto"
       @click="router.push(calcHome)"
-    ></logo>
+    />
 
-    <template v-slot:append>
+    <template #append>
       <v-btn
         v-if="signedin"
         :size="mobile ? 'small' : 'default'"
@@ -68,9 +68,9 @@ const getGreetings = computed(() => {
         tile
       >
         <user-avatar
-          :imgSrc="currentUser.image"
+          :img-src="currentUser.image"
           @click-avatar="drawer = !drawer"
-        ></user-avatar>
+        />
       </v-btn>
     </template>
   </v-app-bar>
@@ -85,9 +85,9 @@ const getGreetings = computed(() => {
       <v-list-item>
         <div class="d-flex justify-start align-center">
           <user-avatar
-            :imgSrc="currentUser.image"
+            :img-src="currentUser.image"
             @click-avatar="drawer = !drawer"
-          ></user-avatar>
+          />
           <div class="ml-3">
             <small>
               {{ getGreetings }}
@@ -98,7 +98,7 @@ const getGreetings = computed(() => {
           </div>
         </div>
       </v-list-item>
-      <v-divider class="mt-2 mb-2"></v-divider>
+      <v-divider class="mt-2 mb-2" />
       <v-list-item
         v-for="(item, index) in menuItems"
         :key="index"
@@ -107,14 +107,15 @@ const getGreetings = computed(() => {
         <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
     </v-list>
-    <template v-slot:append>
+    <template #append>
       <div class="ma-5">
         <v-btn
           :to="{ name: 'signout' }"
           block
           color="primary"
           prepend-icon="mdi-exit-to-app"
-          >Signout
+        >
+          Signout
         </v-btn>
       </div>
     </template>
