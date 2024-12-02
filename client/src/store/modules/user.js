@@ -6,8 +6,6 @@ export const state = {
   token: localStorage.getItem("token") || null,
   currentUser: JSON.parse(localStorage.getItem("currentUser")) || {},
   users: [],
-  organizers: [],
-  managers: [],
 };
 
 export const mutations = {
@@ -16,9 +14,9 @@ export const mutations = {
     state.token = payload;
   },
   setCurrentUser(state, payload) {
-    state.currentUser = { ...state.currentUser, ...payload };
+    state.currentUser = {...state.currentUser, ...payload};
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    currentUser = { ...currentUser, ...payload };
+    currentUser = {...currentUser, ...payload};
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
   },
   removeToken(state) {
@@ -32,35 +30,16 @@ export const mutations = {
   setUsers(state, payload) {
     state.users = payload;
   },
-  addOrganizer(state, payload) {
+  addUser(state, payload) {
     state.users.unshift(payload);
-    state.organizers.unshift(payload);
   },
-  addManager(state, payload) {
-    state.users.unshift(payload);
-    state.managers.unshift(payload);
-  },
-  editOrganizer(state, payload) {
-    const foundIndex = state.organizers.findIndex(
+  editUser(state, payload) {
+    const foundIndex = state.users.findIndex(
       (item) => item.id == payload.id,
     );
     if (foundIndex !== -1) {
-      state.organizers[foundIndex] = payload;
+      state.users[foundIndex] = payload;
     }
-  },
-  editManager(state, payload) {
-    const foundIndex = state.managers.findIndex(
-      (item) => item.id == payload.id,
-    );
-    if (foundIndex !== -1) {
-      state.managers[foundIndex] = payload;
-    }
-  },
-  setOrganizers(state) {
-    state.organizers = state.users.filter((item) => item.role === "organizer");
-  },
-  setManagers(state) {
-    state.managers = state.users.filter((item) => item.role === "team_manager");
   },
   removeUser(state, payload) {
     const foundIndex = state.users.findIndex((item) => item.id == payload.id);
@@ -71,7 +50,7 @@ export const mutations = {
 };
 
 export const actions = {
-  signin({ commit }, request) {
+  signin({commit}, request) {
     return new Promise((resolve, reject) => {
       $axios
         .post("/api/user/signin", request)
@@ -85,25 +64,20 @@ export const actions = {
         });
     });
   },
-  signout({ commit }) {
+  signout({commit}) {
     return new Promise((resolve, reject) => {
       commit("removeToken");
       commit("removeCurrentUser");
       resolve();
     });
   },
-  save({ commit }, request) {
+  save({commit}, request) {
     return new Promise((resolve, reject) => {
       $axios
         .post("/api/user/save", request)
         .then((response) => {
           const actionType = request.id ? "edit" : "add";
-          const actionName =
-            request.role === "organizer"
-              ? `${actionType}Organizer`
-              : request.role === "team_manager"
-                ? `${actionType}Manager`
-                : null;
+          const actionName = `${actionType}User`
           commit(actionName, response.data?.payload);
           resolve(response);
         })
@@ -112,7 +86,7 @@ export const actions = {
         });
     });
   },
-  setUsers({ commit }, request) {
+  setUsers({commit}, request) {
     return new Promise((resolve, reject) => {
       $axios
         .get("/api/user/getUsers")
@@ -125,10 +99,10 @@ export const actions = {
         });
     });
   },
-  removeUser({ commit }, request) {
+  removeUser({commit}, request) {
     return new Promise((resolve, reject) => {
       $axios
-        .get("/api/user/removeUser", { params: { userId: request.id } })
+        .get("/api/user/removeUser", {params: {userId: request.id}})
         .then((response) => {
           commit("removeUser", response.data?.payload);
           resolve(response);
@@ -150,23 +124,15 @@ export const getters = {
   isSudo(state) {
     return state.currentUser.role === "sudo";
   },
-  isOrganizer(state) {
-    return state.currentUser.role === "organizer";
-  },
-  isTeamManager(state) {
-    return state.currentUser.role === "team_manager";
-  },
   signedin(state) {
     return !!state.token;
   },
-  calcHome(state) {
+  calcHome(state, getters) {
     // add all the app roles here, and their default home page
-    return state.currentUser.role === "sudo"
-      ? { name: "dashboard-sudo" }
-      : state.currentUser.role === "organizer"
-        ? { name: "dashboard-organizer" }
-        : state.currentUser.role === "team_manager"
-          ? { name: "dashboard-manager" }
-          : { name: "signout" };
+    return getters.isSudo
+      ? {name: "home"}
+      : getters.signedin
+        ? {name: "home"}
+        : {name: "signout"};
   },
 };

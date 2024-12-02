@@ -1,9 +1,9 @@
 <script setup>
-import { computed, ref } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
-import { isValidEmail } from "@/others/util";
-import { useDisplay } from "vuetify";
+import {computed, ref} from "vue";
+import {useRouter} from "vue-router";
+import {useStore} from "vuex";
+import {isValidEmail} from "@/others/util";
+import {useDisplay} from "vuetify";
 
 definePage({
   layout: "default",
@@ -14,7 +14,7 @@ definePage({
   title: "Signin",
 });
 
-const { mobile } = useDisplay();
+const {mobile} = useDisplay();
 const store = useStore();
 const router = useRouter();
 
@@ -53,7 +53,8 @@ const handleSubmitResetPassword = async () => {
     .then((res) => {
       dialog.value = !dialog.value;
     })
-    .catch((err) => {});
+    .catch((err) => {
+    });
 };
 console.log(router.getRoutes());
 </script>
@@ -114,23 +115,11 @@ console.log(router.getRoutes());
                     class="clickable text-blue"
                     @click="
                       router.push({
-                        name: 'register',
-                        params: { role: 'organizer' },
+                        name: 'register'
                       })
                     "
                   >
-                    Join as Organizer
-                  </div>
-                  <div
-                    class="clickable text-blue"
-                    @click="
-                      router.push({
-                        name: 'register',
-                        params: { role: 'team' },
-                      })
-                    "
-                  >
-                    Join as Manager
+                    No Account?
                   </div>
                   <div class="clickable text-blue" @click="dialog = !dialog">
                     Forgot Password?
@@ -141,7 +130,7 @@ console.log(router.getRoutes());
                   :density="mobile ? 'comfortable' : 'default'"
                   color="primary"
                   type="submit"
-                  >Sign In
+                >Sign In
                 </v-btn>
               </div>
             </v-form>
@@ -182,7 +171,7 @@ console.log(router.getRoutes());
               :density="mobile ? 'compact' : 'default'"
               color="primary"
               type="submit"
-              >Submit
+            >Submit
             </v-btn>
           </v-card-actions>
         </v-form>

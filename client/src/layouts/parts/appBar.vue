@@ -16,47 +16,18 @@ const currentUser = computed(() => store.getters["user/getCurrentUser"]);
 const calcHome = computed(() => store.getters["user/calcHome"]);
 
 const isSudo = computed(() => store.getters["user/isSudo"]);
-const isOrganizer = computed(() => store.getters["user/isOrganizer"]);
-const isTeamManager = computed(() => store.getters["user/isTeamManager"]);
 
 const menuItemsSudo = [
-  {
-    title: "Credentials",
-    to: { name: "credential" },
-  },
-  {
-    title: "Create Team",
-    to: { name: "team-add" },
-  },
+  // {
+  //   title: "Credentials",
+  //   to: { name: "credentials" },
+  // },
 ];
-const menuItemsOrganizer = [
-  { title: "Tournaments", to: { name: "tournament-list" } },
-  {
-    title: "Create Tournament",
-    to: { name: "tournament-add" },
-  },
-  {
-    title: "Team Requests",
-    to: { name: "team-requests" },
-  },
-];
-const menuItemsTeamManager = [
-  { title: "Matches", to: { name: "match-updates" } },
-  {
-    title: "Team Squad",
-    to: { name: "team-squad" },
-  },
-  { title: "Join Tournament", to: { name: "tournament-join" } },
-  { title: "Edit Team", to: { name: "team-edit" } },
-];
+
 const menuItems = computed(() => {
   let items = [{ title: "Home", to: calcHome.value }];
   if (isSudo.value) {
     items = items.concat(menuItemsSudo);
-  } else if (isOrganizer.value) {
-    items = items.concat(menuItemsOrganizer);
-  } else if (isTeamManager.value) {
-    items = items.concat(menuItemsTeamManager);
   }
   return items;
 });

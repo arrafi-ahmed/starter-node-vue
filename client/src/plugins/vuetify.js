@@ -19,6 +19,7 @@ export default createVuetify({
     VTimePicker,
   },
   theme: {
+    // defaultTheme: 'dark',
     themes: {
       light: {
         colors: {

@@ -2,19 +2,19 @@
 node_modules
 client/dist
 
+api/public/team-logo/*
 api/public/tmp/*
 api/public/user/*
-api/public/event-logo/*
 
 # allow all the folders themselves to be tracked
+!api/public/team-logo/.gitkeep
 !api/public/tmp/.gitkeep
 !api/public/user/.gitkeep
-!api/public/event-logo/.gitkeep
 
 # env files
 .env
 .env.development
-.env.production
+**/.env.production
 
 # skip ignoring production env as its used in build on prod server
 !client/.env.production
@@ -33,3 +33,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+

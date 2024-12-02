@@ -1,8 +1,8 @@
 <script setup>
-import { onMounted, reactive, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { isValidEmail, isValidPass, showApiQueryMsg } from "@/others/util";
-import { useDisplay } from "vuetify";
+import {onMounted, reactive, ref} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {isValidEmail, isValidPass, showApiQueryMsg} from "@/others/util";
+import {useDisplay} from "vuetify";
 
 definePage({
   name: "register",
@@ -12,21 +12,19 @@ definePage({
   },
 });
 
-const { mobile } = useDisplay();
+const {mobile} = useDisplay();
 const route = useRoute();
 const router = useRouter();
 const userInit = {
   name: null,
   email: null,
   password: null,
-  role:
-    route.params.role === "team"
-      ? "team_manager"
-      : route.params.role === "organizer"
-        ? "organizer"
-        : null,
+  // role:
+  //   route.params.role === "team"
+  //     ? "team_manager"
+  //       : null,
 };
-const user = reactive({ ...userInit });
+const user = reactive({...userInit});
 const confirmPassword = ref(null);
 const form = ref(null);
 const isFormValid = ref(true);
@@ -141,7 +139,7 @@ onMounted(() => {
                 block
                 color="primary"
                 @click="registerUser"
-                >Register
+              >Register
               </v-btn>
               <div
                 class="clickable mt-3 text-center text-blue"
