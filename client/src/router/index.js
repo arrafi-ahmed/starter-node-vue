@@ -14,13 +14,13 @@ const router = createRouter({
   routes: setupLayouts(routes),
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.name === "dashboard" && !store.getters["user/calcHome"]) {
-    next({ name: store.getters["user/calcHome"] });
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   if (to.name === "dashboard") {
+//     next({ name: 'home' });
+//   } else {
+//     next();
+//   }
+// });
 
 // Workaround for https://github.com/vitejs/vite/issues/11804
 router.onError((err, to) => {
